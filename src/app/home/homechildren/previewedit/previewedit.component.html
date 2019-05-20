@@ -1,0 +1,171 @@
+<div class="container-fluid" style="max-width:1200px">
+  <button mat-raised-button (click)="backPage()" style="margin-bottom: 30px;">Back</button>
+  <div class="row" style="width:100%;">
+    <div class="col-md-12 col-xl-9 col-lg-9">
+      <div class="row">
+        <div class="col-xl-12">
+          <div class="row" style="width:100%;">
+            <div class="col-lg-12">
+              <div class="row">
+                <div class="col-lg-12">
+                  <div width="100%" *ngFor="let record of data">
+                    <h2 *ngIf="record['name']== 'title'">{{record['data']}}</h2>
+                    <p *ngIf="record['name']== 'title'"
+                      style="margin-top: -5px; color:#39935A !important; font-size:14px !important;">
+                      <span style="color:black;">
+                        <mat-icon class="material-icons">today</mat-icon>
+                      </span>
+                      <span style="color: black;margin-left: -5px;">03/30/2017</span> &nbsp;
+                      <span style="color:black;">
+                        <mat-icon class="material-icons">timer</mat-icon>
+                      </span>
+                      <span style="color:black;margin-left: -5px;">5 minutes read&nbsp;&nbsp;</span>
+                      <span><img src="assets/pen.png" width="12px" style="margin-top: -2px !important;"></span>
+                      &nbsp;Naren Allam
+                    </p>
+                    <!-- <br> -->
+                    <div class="mt-3">
+                      <p *ngIf="record['name']== 'text'" innerHtml="{{record['data']}}"></p>
+                      <div>
+                        <img class="postImage" [src]="record['data']" *ngIf="record['name'] == 'image'">
+                      </div>
+                      <div class="row">
+                        <div class="col-lg-12" *ngIf="record['name']== 'subtitle'">
+                          <div>
+                            <h4>{{record['data']}}</h4>
+                          </div>
+                        </div>
+                        <div class="col-lg-12">
+                          <pre [ngClass]="record['class']" *ngIf="record['name']=='code' && record['data']"
+                            style="border: 1px solid lightgray;" class="line-numbers mat-elevation-z5">
+                              <div style="width:100% !important; font-family: 'Segoe Pro Regular' !important; height:20px; margin-left: -160px; margin-bottom: 10px; margin-top: -30px; color: rgb(75, 75, 75) !important;">
+                                <span>{{record['language'] | uppercase}}</span> <span style="float:right; margin-right: -160px; border-left:1px solid lightgray; font-size: 12px; margin-bottom: 20px !important;margin-top: -10px !important;" (click)="copyMessage(record['data'])">&nbsp;&nbsp;<button mat-icon-button><mat-icon class="material-icons-custom">file_copy</mat-icon></button>Copy</span>
+                              </div>
+                              <hr style="margin-right: -15px; margin-left: -60px; margin-top: 35px;">
+                              <code>
+                                {{record['data']}}
+                              </code>
+                            </pre>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- <strong><strong>Naren Allam</strong></strong>
+                    <h6><strong>23/04/2017</strong></h6> -->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- <br> -->
+        </div>
+      </div>
+    </div>
+    <div class="col-xl-3 col-lg-3 col-md-12">
+      <form [formGroup]="post_details" (submit)="submit_post_details()">
+        <mat-form-field>
+          <mat-label>Author name</mat-label>
+          <mat-select formControlName="author" matNativeControl required (selectionChange)="selectPostType($event)">
+            <mat-option> <b>NONE</b> </mat-option>
+            <mat-option [value]="val" *ngFor="let val of writers">{{val['name']}}</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="post_details.controls['author'].hasError('required') && (post_details.controls['author'].dirty || post_details.controls['author'].touched)">
+            Please select an author name</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+          <!-- <mat-icon matPrefix>create</mat-icon> -->
+          <mat-label>Reading time in minutes</mat-label>
+          <input matInput formControlName="reading_time" type="number" required>
+          <mat-error
+            *ngIf="post_details.controls['reading_time'].hasError('required') && (post_details.controls['reading_time'].dirty || post_details.controls['reading_time'].touched)">
+            Please enter reading time</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Select language</mat-label>
+          <mat-select formControlName="language" matNativeControl required (selectionChange)="selectLanguage($event)">
+            <mat-option> <b>NONE</b> </mat-option>
+            <mat-option *ngFor="let val of select_languages" [value]="val">{{val}}</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="post_details.controls['language'].hasError('required') && (post_details.controls['language'].dirty || post_details.controls['language'].touched)">
+            Please select a language</mat-error>
+        </mat-form-field>
+
+
+        <mat-form-field class="example-chip-list">
+          <mat-chip-list #chipList>
+            <mat-chip *ngFor="let language of selected_languages" [selectable]="selectable" [removable]="removable"
+              (removed)="remove(language)">
+              {{language}}
+              <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+            </mat-chip>
+            <input placeholder="Language tags..." #languageInput [formControl]="languageCtrl" [matAutocomplete]="auto"
+              [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)">
+          </mat-chip-list>
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+            <mat-option *ngFor="let language of filteredLanguages | async" [value]="language">
+              {{language}}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+
+
+        <mat-form-field>
+          <mat-label>Select post type</mat-label>
+          <mat-select formControlName="post_type" matNativeControl required (selectionChange)="selectPostType($event)">
+            <mat-option> <b>NONE</b> </mat-option>
+            <mat-option value="post">Post</mat-option>
+            <mat-option value="article">Article</mat-option>
+          </mat-select>
+          <mat-error
+            *ngIf="post_details.controls['post_type'].hasError('required') && (post_details.controls['post_type'].dirty || post_details.controls['post_type'].touched)">
+            Please select a language</mat-error>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Please choose a date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="post_date" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+          <mat-error
+            *ngIf="post_details.controls['post_date'].hasError('required') && (post_details.controls['post_date'].dirty || post_details.controls['post_date'].touched)">
+            Please choose a date</mat-error>
+        </mat-form-field>
+        <button mat-raised-button type="submit">Post Article</button>
+      </form>
+
+      <!-- <div>
+          <h3>Popular Topics</h3>
+          <hr>
+        </div><br>
+  
+        <div class="row" *ngFor="let i of topics">
+          <div class="col-md-12">
+            <h5>Object Orientation Through Python</h5><br><br>
+            <p>
+              It is the third part of Beautiful Python series by Tk. If you are a totally beginner developer learning
+              Python, you should.
+            </p>
+            <h5><strong>Naren Allam</strong></h5>
+            <h6><strong>23/04/2017</strong></h6><br>
+          </div>
+        </div> -->
+    </div>
+  </div>
+</div>
+
+
+<!-- <div style="width:100% !important; font-family: 'Segoe Pro Regular' !important; height:30px; ;margin-left: -120px; margin-top: -60px; color: darkgray !important;">
+      <span>Python</span> <span style="float:right; margin-right: -120px; border-left:1px solid darkgray; font-size: 16px !important; margin-top:-8px;" (click)="copyMessage(record['data'])">&nbsp;&nbsp;<button mat-icon-button><mat-icon class="material-icons-custom" style="margin-top: -15px !important;">file_copy</mat-icon></button></span>
+    </div>
+      <hr style="margin-right: -15px; margin-left: -15px; margin-top: -24px;"> -->
+
+<!-- <mat-form-field>
+      <mat-icon matPrefix>create</mat-icon>
+      <mat-label>Enter author name</mat-label>
+      <input matInput formControlName="author" type="text" required>
+      <mat-error
+        *ngIf="post_details.controls['author'].hasError('required') && (post_details.controls['author'].dirty || post_details.controls['author'].touched)">
+        Please enter valid author name</mat-error>
+    </mat-form-field> -->

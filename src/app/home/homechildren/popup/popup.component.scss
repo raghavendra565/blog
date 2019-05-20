@@ -1,0 +1,28 @@
+.material-icons {
+    font-family: 'Material Icons' !important;
+    font-size: 24px !important;
+    font-weight: lighter !important;
+    font-style: normal;
+    display: inline-block;
+    line-height: 2;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    -webkit-font-smoothing: antialiased;
+
+    text-rendering: optimizeLegibility;
+
+    -moz-osx-font-smoothing: grayscale;
+
+    font-feature-settings: 'liga';
+
+}
+
+.popup {
+    max-width:400px; 
+    max-height: 400px; 
+    min-height: 300px;
+}

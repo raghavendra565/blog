@@ -1,0 +1,108 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+// @import url('https://fonts.googleapis.com/css?family=Open+Sans');
+
+// font-family: 'Open Sans', sans-serif;
+// font-family: 'Roboto', sans-serif;
+// font-family: 'Lato', sans-serif;
+// font-family: 'Raleway', sans-serif;
+// font-family: 'Copse', serif;
+
+@import '~@angular/material/theming';
+
+// @import "~prismjs/plugins/toolbar/prism-toolbar.css";
+@import "~prismjs/themes/prism.css";
+@import "~prismjs/plugins/line-numbers/prism-line-numbers.css";
+
+
+@import 'assets/font/Consolas.ttf';
+
+@font-face {
+    font-family: 'Consolas';
+    src: url('assets/font/Consolas.ttf');
+}
+
+@font-face {
+    font-family: 'Segoe Pro Bold';
+    src: url('assets/font/SegoePro-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'Segoe Pro Light';
+    src: url('assets/font/SegoePro-Light.ttf');
+}
+
+@font-face {
+    font-family: 'Segoe Pro Regular';
+    src: url('assets/font/SegoePro-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Segoe Pro Semi Bold';
+    src: url('assets/font/SegoePro-Semibold.ttf');
+}
+
+@font-face {
+    font-family: 'Segoe Pro Light Italic';
+    src: url('assets/font/SegoePro-SemilightItalic.ttf');
+}
+
+$custom-typography: mat-typography-config(
+    $font-family: 'Segoe Pro Regular' !important 
+);
+
+@include mat-core($custom-typography);
+
+* {
+    font-family: 'Segoe Pro Regular' !important;
+}
+
+@import 'assets/font/consola/CONSOLA.TTF';
+@import 'assets/font/consola/CONSOLAB.TTF';
+
+@font-face {
+    font-family: 'CONSOLA';
+    src: url('assets/font/consola/CONSOLA.TTF');
+}
+
+@font-face {
+    font-family: 'CONSOLAB';
+    src: url('assets/font/consola/CONSOLAB.TTF');
+}
+
+@import 'assets/font/Source_Code_Pro/SourceCodePro-Regular.ttf';
+@import 'assets/font/Source_Code_Pro/SourceCodePro-Bold.ttf';
+@import 'assets/font/Inconsolata/Inconsolata-Regular.ttf';
+@import 'assets/font/Inconsolata/Inconsolata-Bold.ttf';
+
+@font-face {
+    font-family: 'Inconsolata';
+    src: url('assets/font/Inconsolata/Inconsolata-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'InconsolataB';
+    src: url('assets/font/Inconsolata/Inconsolata-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'SourceCodeProBold';
+    src: url('assets/font/Source_Code_Pro/SourceCodePro-Bold.ttf');
+}
+
+@font-face {
+    font-family: 'SourceCodeProRegular';
+    src: url('assets/font/Source_Code_Pro/SourceCodePro-Regular.ttf');
+}
+
+// @import url('https://fonts.googleapis.com/css?family=Inconsolata|Source+Code+Pro');
+
+// font-family: 'Inconsolata', monospace;
+// font-family: 'Source Code Pro', monospace;
+
+
+//Sego Ui
+
+// @import 'highlight.js/styles/github.css';   , Tahoma, Geneva, Verdana, sans-serif
+

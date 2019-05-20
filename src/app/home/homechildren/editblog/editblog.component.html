@@ -1,0 +1,99 @@
+<div class="container-fluid" style="max-width: 1200px;">
+  <div class="mx-4">
+    <div class="row mb-5">
+      <div class="col-lg-12 d-flex display-content-center">
+       Edit Your Blog From here
+      </div>
+    </div>
+    <div class="row mb-5">
+      <div class="col-lg-6">
+        <button mat-raised-button (click)="showPreview()">Show preview</button>
+      </div>
+      <div class=" col-lg-6 d-flex justify-content-end">
+        <button mat-raised-button (click)="reset_blog()">Reset blog</button>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-12">
+        <div width="100%" *ngFor="let record of data; let y = index">
+          <mat-card class="mb-2 mat-elevation-z5">
+            <div class="row mx-1">
+              <div class="col-sm-11">
+                <div class="row mb-2">
+                  <button mat-mini-fab (click)="add()" *ngIf="add_flag">
+                    <mat-icon>add</mat-icon>
+                  </button>
+                  <button mat-mini-fab (click)="add()" *ngIf="!add_flag">
+                    <mat-icon>clear</mat-icon>
+                  </button>
+                  <mat-chip-list *ngIf="!add_flag" class="chip-list" [multiple]="false">
+                    <mat-chip color="primary" [selected]="state[0]" (selectionChange)="addElement('title')"
+                      (click)="addElement('title', record['position'])" value="title">title</mat-chip>
+                    <mat-chip color="primary" [selected]="state[1]" (selectionChange)="addElement('subtitle')"
+                      (click)="addElement('subtitle', record['position'])" value="subtitle">subtitle</mat-chip>
+                    <mat-chip color="primary" [selected]="state[2]" (selectionChange)="addElement('code')"
+                      (click)="addElement('code', record['position'])" value="code">code</mat-chip>
+                    <mat-chip color="primary" [selected]="state[3]" (selectionChange)="addElement('image')"
+                      (click)="addElement('image', record['position'])" value="image">image</mat-chip>
+                    <mat-chip color="primary" [selected]="state[4]" (selectionChange)="addElement('video')"
+                      (click)="addElement('video', record['position'])" value="video">video</mat-chip>
+                    <mat-chip color="primary" [selected]="state[5]" (selectionChange)="addElement('text')"
+                      (click)="addElement('text', record['position'])" value="text">text</mat-chip>
+                  </mat-chip-list>
+                </div>
+              </div>
+              <div class="col-sm-1 d-flex justify-content-end">
+                <!-- <button mat-mini-fab (click)="remove(record['position'])" color="danger"> -->
+                <button mat-icon-button (click)="remove(y)">
+                  <mat-icon>highlight_off</mat-icon>
+                </button>
+              </div>
+            </div>
+            <input class="input-title" placeholder="Title" autofocus (keyup)="inputValue(record['position'], $event)"
+              [value]="record['data']" *ngIf="record['name'] == 'title' || record['position'] == 0">
+
+            <input class="input-subtitle" placeholder="Subtitle" autofocus
+              (keyup)="inputValue(record['position'], $event)" [value]="record['data']"
+              *ngIf="record['name'] == 'subtitle'">
+
+            <textarea class="input-text" placeholder="Description here" autofocus rows=8
+              (keyup)="inputValue(record['position'], $event)" [value]="record['data']"
+              *ngIf="record['name'] == 'text'"></textarea>
+
+            <input type="file" (change)="selectFile(record['position'], $event)" *ngIf="record['name'] == 'image'" accept=".jpeg, .png, .jpg, .gif">
+            <br>
+            <img [src]="record['data']" *ngIf="record['name'] == 'image'" width="300" />
+            <mat-form-field *ngIf="record['name'] == 'code'">
+              <mat-label>language</mat-label>
+              <mat-select matNativeControl required (selectionChange)="selectLanguage(record['position'], $event)">
+                <mat-option>-- NONE --</mat-option>
+                <mat-option *ngFor="let val of select_languages" [value]="val">{{val}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <textarea class="input-text" placeholder="Place your code here" autofocus rows=8
+              (keyup)="inputValue(record['position'], $event)" [value]="record['data']"
+              *ngIf="record['name'] == 'code'"></textarea>
+          </mat-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" *ngIf="show_preview">
+    <div class="col-lg-8">
+      <div width="100%" *ngFor="let d of data">
+        <h3 *ngIf="d['name']== 'title'">{{d['data']}}</h3>
+        <h5 *ngIf="d['name']== 'subtitle'">{{d['data']}}</h5>
+        <p *ngIf="d['name']== 'text'">{{d['data']}}</p>
+        <br>
+        <pre [ngClass]="d['class']" *ngIf="d['name']=='code' && d['data']">
+          <code>
+            {{d['data']}}
+          </code>
+        </pre>
+        <br>
+        <img [src]="d['data']" *ngIf="d['name'] == 'image'" width="300">
+      </div>
+    </div>
+  </div>
+</div>

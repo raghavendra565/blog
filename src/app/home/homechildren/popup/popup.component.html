@@ -1,0 +1,37 @@
+<div class="container-fluid popup" *ngIf="data.type == 'success'">
+  <div class="row">
+    <div class="col-xl-12">
+      <table style="max-height: 300px;min-height: 200px;">
+        <tbody>
+          <tr>
+            <td class="align-middle">
+              You have successfully posted your Post or Article.<br>
+              Keep posting.. <span>
+                <mat-icon class="material-icons">tag_faces</mat-icon>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid popup" *ngIf="data.type == 'error'">
+  <div class="row">
+    <div class="col-xl-12">
+      <table style="max-height: 300px;min-height: 200px;">
+        <tbody>
+          <tr>
+            <td class="align-middle">
+              An error occured. Please try again
+               <span>
+                <mat-icon class="material-icons">mood_bad</mat-icon>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

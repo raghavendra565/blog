@@ -1,0 +1,73 @@
+.postImage{
+    width:70%;
+    max-width: 80%;
+}
+
+
+h2{
+    margin-top: -20px;
+    color: #39935A;
+    // font-family: 'Segoe Pro Regular' !important;
+}
+
+h5{
+    color:#39935A; 
+}
+
+h3{
+    color:#39935A; 
+}
+
+// p{
+//     // margin-top: -20px;
+//     font-family: 'Segoe Pro Regular' !important;
+// }
+
+.material-icons {
+    font-family: 'Material Icons' !important;
+    font-size: 12px !important;
+    font-weight: lighter !important;
+    font-style: normal;
+    display: inline-block;
+    line-height: 2;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    -webkit-font-smoothing: antialiased;
+
+    text-rendering: optimizeLegibility;
+
+    -moz-osx-font-smoothing: grayscale;
+
+    font-feature-settings: 'liga';
+}
+
+.material-icons-custom {
+    font-family: 'Material Icons' !important;
+    font-size: 18px !important;
+
+    font-weight: lighter !important;
+    font-style: normal;
+    display: inline-block;
+    line-height: 2;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+	// margin-top: -6px;
+	// margin-bottom: -16px;
+
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: 'liga';
+}
+
+button {
+    outline: none !important;
+}
