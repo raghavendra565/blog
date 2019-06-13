@@ -48,9 +48,11 @@ export class BlogComponent implements OnInit {
   
   ngOnInit() {
     try {
-      this.data = JSON.parse(localStorage.getItem('data'));
-      if( this.data == null){
+      var data = JSON.parse(localStorage.getItem('data'));
+      if( data == null){
         this.data = [{ "name": 'title', "position": 0, "file": "", "data": "", "placing": "", "language": "" }];
+      }else{
+        this.data = data;
       }
     }
     catch {
@@ -72,18 +74,15 @@ export class BlogComponent implements OnInit {
   }
 
   remove(pos: number) {
-    console.log(pos);
     this.data.splice(pos, 1);
     for (let i = 0; i < this.data.length; i++) {
       this.data[i]['position'] = i
     }
     localStorage.setItem('data', JSON.stringify(this.data))
-    console.log(this.data);
   }
 
   addElement(event: any, pos: number) {
     try {
-      // let pos = this.data[this.data.length - 1]["position"] + 1;
       this.data.splice(pos + 1, 0, { "name": event, "position": pos + 1, "file": "", "data": "", "placing": "", "language": "", "class": "" });
 
       for (let i = 0; i < this.data.length; i++) {
@@ -98,7 +97,6 @@ export class BlogComponent implements OnInit {
 
   selectFile(pos: number, event: any) {
     this.data[pos]["file"] = event.target.files[0];
-    console.log(this.data);
     this.readURL(pos, event.target);
   }
 
@@ -106,7 +104,6 @@ export class BlogComponent implements OnInit {
     let val = event.value
     this.data[pos]["language"] = val;
     this.data[pos]["class"] = "language-" + val;
-    console.log(this.data);
   }
 
   showPreview() {
@@ -116,12 +113,6 @@ export class BlogComponent implements OnInit {
       this.show_preview = true;
       localStorage.setItem('data', JSON.stringify(this.data))
       this.router.navigate(['home/preview'])
-      // let navigation: NavigationExtras = {
-      //   queryParams: {
-      //     "data": JSON.stringify(this.data)
-      //   }, skipLocationChange: true
-      // };
-      // this.router.navigate(['preview'], navigation);
     }
   }
 
@@ -129,29 +120,12 @@ export class BlogComponent implements OnInit {
     var value = event.target.value;
     this.data[pos]["data"] = value;
     localStorage.setItem('data', JSON.stringify(this.data))
-    // console.log(this.data[pos]);
-    console.log(this.data)
   }
 
   readURL(pos: number, input) {
     if (input.files && input.files[0]) {
       readBase64(input.files[0]).then((data: any) => {
         this.data[pos]['data'] = data;
-        console.log(this.data);
-
-
-        // var url = environment.server_url + 'test';
-        // let headers = new HttpHeaders();
-        // const httpOptions = {
-        //   headers: new HttpHeaders({
-        //     // 'content-Type': 'application/json',
-        //     'Access-Control-Allow-Origin': '*'
-        //   })
-        // }
-        // headers.append("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-        // headers.append('Content-Type', 'multipart/form-data'); //charset=utf-8
-        // var form: FormData = new FormData();
-        console.log(data);
         data = data.split(";")
         let data_type = data[0];
         try{
@@ -161,17 +135,6 @@ export class BlogComponent implements OnInit {
           this.data[pos]['file_type'] = '.'+data_type.split('/')[0];
         }
         data = data[1].split(",")[1];
-        // this.data[pos]['data'] = data
-        console.log(data);
-        // form.append('data_type', data);
-        // form.append('sample', input.files[0]);
-        // form.append('blog_data', JSON.stringify(this.data));
-        // this.http.post(url, form, httpOptions).subscribe(data => {
-        //   console.log(data);
-        // }, error => {
-        //   console.log(error);
-        // })
-
       })
     }
   }
@@ -182,6 +145,32 @@ export class BlogComponent implements OnInit {
   }
 }
 
+
+// console.log(this.data);
+// var url = environment.server_url + 'test';
+// let headers = new HttpHeaders();
+// const httpOptions = {
+//   headers: new HttpHeaders({
+//     // 'content-Type': 'application/json',
+//     'Access-Control-Allow-Origin': '*'
+//   })
+// }
+// headers.append("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
+// headers.append('Content-Type', 'multipart/form-data'); //charset=utf-8
+// var form: FormData = new FormData();
+// console.log(data);
+
+
+// this.data[pos]['data'] = data
+// console.log(data);
+// form.append('data_type', data);
+// form.append('sample', input.files[0]);
+// form.append('blog_data', JSON.stringify(this.data));
+// this.http.post(url, form, httpOptions).subscribe(data => {
+//   console.log(data);
+// }, error => {
+//   console.log(error);
+// })
 
 // = function (e: any) {
 //   console.log(e);

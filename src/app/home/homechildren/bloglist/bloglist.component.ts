@@ -41,50 +41,22 @@ export class BloglistComponent implements OnInit {
 
   getBlogs() {
     var url = environment.server_url + 'get/blogs';
-    let headers = new HttpHeaders();
     const httpOptions = {
       headers: new HttpHeaders({
         'content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       })
     }
-
-    // headers.append("Access-Control-Allow-Methods", "GET, POST, DELETE, PUT")
-    // headers.append('Content-Type', 'multipart/form-data'); //charset=utf-8
     this.http.get(url).subscribe(data => {
       for (let j in data) {
-        for (let i = 0; i < data[j]['blog_data'].length; i++) {
-          if (data[j]['blog_data'][i]['name'] == 'image') {
-            let format_data = data[j]['blog_data'][i]['data'];
-            // format_data = format_data.split(";")
-            // let data_type = format_data[0];
-            // format_data = format_data[1].split(",")[1];
-            // console.log(format_data);
-            data[j]['blog_data'][i]['data'] = 'data:image/' + data[j]['blog_data'][i]['file_type'].split('.')[1] + ';base64,' + format_data;
-          }
-        }
         this.list_blogs.push(data[j]);
-      }
-      let count = 0;
-      for (let i in data) {
-        console.log(data[i]['blog_data']);
-        for (let j = 0; j < data[i]['blog_data'].length; j++) {
-          if (data[i]['blog_data'][j]['name'] == 'image') {
-            data[i]['preview_image'] = data[i]['blog_data'][j]['data'];
-            count = count + 1;
-            break;
-          }
-        }
-        console.log(i);
       }
       this.dataSource = new MatTableDataSource(this.list_blogs);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
-      console.log(this.list_blogs);
-    },
-      error => {
-        console.log(error);
-      })
+    },error => {
+        console.debug(error);
+    })
   }
 
   dataURItoBlob(dataURI) {
@@ -120,8 +92,6 @@ export class BloglistComponent implements OnInit {
   }
 
   postComment(data: any, j: number) {
-    console.log(j);
-    console.log(data);
     if (this.comment != null) {
       if (this.commenter_name != null) {
         this.list_blogs[j]['comments'].push({ 'comment': this.comment, 'name': this.commenter_name, 'email': this.commenter_email });
@@ -137,18 +107,36 @@ export class BloglistComponent implements OnInit {
         })
       }
       var body = JSON.stringify({'uid':this.list_blogs[j]['uid'], 'comment':this.list_blogs[j]['comments'][this.list_blogs[j]['comments'].length - 1]});
-      console.log(body);
       this.http.post(url, body, httpOptions).subscribe(data => {
-        console.log(data);
       }, error => {
         console.log(error);
       })
     }
   }
 
-  editBlog(data: any){
-    localStorage.setItem('edit_blog_data', JSON.stringify(data));
-    this.router.navigate(['home/editblog'])
+  editBlog(preview_data: any){
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      })
+    }
+    var url = environment.server_url + 'get/blog_by_id';
+    var body = JSON.stringify({ 'uid': preview_data['uid']});
+    this.http.post(url, body, httpOptions).subscribe(data => {
+      var article = data
+      for(let i = 0; i<article["blog_data"].length; i++){
+        if(article["blog_data"][i]['name'] == 'image'){
+          let format_data = article['blog_data'][i]['data'];
+          article['blog_data'][i]['data'] = 'data:image/' + article['blog_data'][i]['file_type'].split('.')[1] + ';base64,' + format_data;
+        }
+      }
+      localStorage.setItem('edit_blog_data', JSON.stringify(article));
+      this.router.navigate(['home/editblog'])
+
+    }, error => {
+      console.debug(error);
+    })    
   }
 
   applyFilter(filterValue: string) {
@@ -158,5 +146,29 @@ export class BloglistComponent implements OnInit {
       this.dataSource.paginator.firstPage();
     }
   }
-
 }
+
+// let count = 0;
+// for (let i in data) {
+//   // console.log(data[i]['blog_data']);
+//   for (let j = 0; j < data[i]['blog_data'].length; j++) {
+//     if (data[i]['blog_data'][j]['name'] == 'image') {
+//       data[i]['preview_image'] = data[i]['blog_data'][j]['data'];
+//       count = count + 1;
+//       break;
+//     }
+//   }
+//   // console.log(i);
+// }
+
+// for (let i = 0; i < data[j]['blog_data'].length; i++) {
+//   if (data[j]['blog_data'][i]['name'] == 'image') {
+//     let format_data = data[j]['blog_data'][i]['data'];
+//     // format_data = format_data.split(";")
+//     // let data_type = format_data[0];
+//     // format_data = format_data[1].split(",")[1];
+//     // console.log(format_data);
+//     data[j]['blog_data'][i]['data'] = 'data:image/' + data[j]['blog_data'][i]['file_type'].split('.')[1] + ';base64,' + format_data;
+//   }
+// }
+

@@ -57,11 +57,30 @@ export class EditblogComponent implements OnInit {
   state: Array<boolean> = [false, false, false, false, false, false];
   // { "name": 'text', "position": 1, "file": "", "data": "", "placing": "", "language": "" }
   data: Array<any> = [{ "name": 'title', "position": 0, "file": "", "data": "", "placing": "", "language": "" }];
-  select_language: Array<string> = ['css', 'javascript', 'java', 'markup', 'typescript', 'sass', 'python', 'dart', 'docker', 'go',
-    'c', 'julia', 'scala', 'sql', 'r', 'yaml', 'json', 'protobuf', 'nginx', 'bash', 'powershell']
+  select_language: Array<string> = ['css', 'javascript', 'java', 'markup', 'typescript', 'sass', 
+  'python', 'dart', 'docker', 'go', 'c', 'julia', 'scala', 'sql', 'r', 'yaml', 'json',
+   'protobuf', 'nginx', 'bash', 'powershell']
 
-  select_languages: Array<string> = ['abap', 'actionscript', 'ada', 'apacheconf', 'apl', 'applescript', 'arduino', 'arff', 'asciidoc', 'asm6502', 'aspnet', 'autohotkey', 'autoit', 'bash', 'basic', 'batch', 'bison', 'brainfuck', 'bro', 'c', 'clike', 'clojure', 'coffeescript', 'cpp', 'crystal', 'csharp', 'csp', 'css', 'css-extras', 'd', 'dart', 'diff', 'django', 'docker', 'eiffel', 'elixir', 'elm', 'erb', 'erlang', 'flow', 'fortran', 'fsharp', 'gedcom', 'gherkin', 'git', 'glsl', 'gml', 'go', 'graphql', 'groovy', 'haml', 'handlebars', 'haskell', 'haxe', 'hpkp', 'hsts', 'http', 'ichigojam', 'icon', 'inform7', 'ini', 'io', 'j', 'java', 'javascript', 'jolie', 'json', 'jsx', 'julia', 'keyman', 'kotlin', 'latex', 'less', 'liquid', 'lisp', 'livescript', 'lolcode', 'lua', 'makefile', 'markdown', 'markup', 'markup-templating', 'matlab', 'mel', 'mizar', 'monkey', 'n4js', 'nasm', 'nginx', 'nim', 'nix', 'nsis', 'objectivec', 'ocaml', 'opencl', 'oz', 'parigp', 'parser', 'pascal', 'perl', 'php', 'php-extras', 'plsql', 'powershell', 'processing', 'prolog', 'properties', 'protobuf', 'pug', 'puppet', 'pure', 'python', 'q', 'qore', 'r', 'reason', 'renpy', 'rest', 'rip', 'roboconf', 'ruby', 'rust', 'sas', 'sass', 'scala', 'scheme', 'scss', 'smalltalk', 'smarty', 'soy', 'sql', 'stylus', 'swift', 'tap', 'tcl', 'textile', 'tsx', 'tt2', 'twig', 'typescript', 'vbnet', 'velocity', 'verilog', 'vhdl', 'vim', 'visual-basic', 'wasm', 'wiki', 'xeora', 'xojo', 'xquery', 'yaml']
+  select_languages: Array<string> = ['abap', 'actionscript', 'ada', 'apacheconf', 'apl',
+    'applescript', 'arduino', 'arff', 'asciidoc', 'asm6502', 'aspnet', 'autohotkey', 'autoit',
+    'bash', 'basic', 'batch', 'bison', 'brainfuck', 'bro', 'c', 'clike', 'clojure', 'coffeescript',
+    'cpp', 'crystal', 'csharp', 'csp', 'css', 'css-extras', 'd', 'dart', 'diff', 'django',
+    'docker', 'eiffel', 'elixir', 'elm', 'erb', 'erlang', 'flow', 'fortran', 'fsharp', 'gedcom',
+    'gherkin', 'git', 'glsl', 'gml', 'go', 'graphql', 'groovy', 'haml', 'handlebars', 'haskell',
+    'haxe', 'hpkp', 'hsts', 'http', 'ichigojam', 'icon', 'inform7', 'ini', 'io', 'j', 'java',
+    'javascript', 'jolie', 'json', 'jsx', 'julia', 'keyman', 'kotlin', 'latex', 'less',
+    'liquid', 'lisp', 'livescript', 'lolcode', 'lua', 'makefile', 'markdown', 'markup', 
+    'markup-templating', 'matlab', 'mel', 'mizar', 'monkey', 'n4js', 'nasm', 'nginx', 'nim', 
+    'nix', 'nsis', 'objectivec', 'ocaml', 'opencl', 'oz', 'parigp', 'parser', 'pascal', 'perl', 
+    'php', 'php-extras', 'plsql', 'powershell', 'processing', 'prolog', 'properties', 'protobuf', 
+    'pug', 'puppet', 'pure', 'python', 'q', 'qore', 'r', 'reason', 'renpy', 'rest', 'rip', 
+    'roboconf', 'ruby', 'rust', 'sas', 'sass', 'scala', 'scheme', 'scss', 'smalltalk', 'smarty', 
+    'soy', 'sql', 'stylus', 'swift', 'tap', 'tcl', 'textile', 'tsx', 'tt2', 'twig', 'typescript', 
+    'vbnet', 'velocity', 'verilog', 'vhdl', 'vim', 'visual-basic', 'wasm', 'wiki', 'xeora', 'xojo', 
+    'xquery', 'yaml']
+  
   full_blog: any;
+
   ngOnInit() {
     try {
       this.full_blog = JSON.parse(localStorage.getItem('edit_blog_data'));
@@ -72,7 +91,7 @@ export class EditblogComponent implements OnInit {
     }
     catch {
       this.data = [{ "name": 'title', "position": 0, "file": "", "data": "", "placing": "", "language": "" }];
-      console.log(this.data);
+      // console.log(this.data);
     }
   }
 
@@ -90,12 +109,12 @@ export class EditblogComponent implements OnInit {
   }
 
   remove(pos: number) {
-    console.log(pos);
+    // console.log(pos);
     this.data.splice(pos, 1);
     for (let i = 0; i < this.data.length; i++) {
       this.data[i]['position'] = i
     }
-    console.log(this.data);
+    // console.log(this.data);
   }
 
   addElement(event: any, pos: number) {
@@ -115,7 +134,7 @@ export class EditblogComponent implements OnInit {
 
   selectFile(pos: number, event: any) {
     this.data[pos]["file"] = event.target.files[0];
-    console.log(this.data);
+    // console.log(this.data);
     this.readURL(pos, event.target);
   }
 
@@ -123,7 +142,7 @@ export class EditblogComponent implements OnInit {
     let val = event.value
     this.data[pos]["language"] = val;
     this.data[pos]["class"] = "language-" + val;
-    console.log(this.data);
+    // console.log(this.data);
   }
 
   showPreview() {
@@ -132,7 +151,7 @@ export class EditblogComponent implements OnInit {
     } else {
       this.show_preview = true;
       this.full_blog['blog_data'] = this.data;
-      console.log(this.full_blog);
+      // console.log(this.full_blog);
       localStorage.setItem('edit_blog_data', JSON.stringify(this.full_blog))
       this.router.navigate(['home/previewedit'])
 
@@ -151,16 +170,16 @@ export class EditblogComponent implements OnInit {
     this.full_blog['blog_data'] = this.data;
     localStorage.setItem('edit_blog_data', JSON.stringify(this.full_blog))
     // console.log(this.data[pos]);
-    console.log(this.data)
+    // console.log(this.data);
   }
 
   readURL(pos: number, input) {
     if (input.files && input.files[0]) {
       readBase64(input.files[0]).then((data: any) => {
         this.data[pos]['data'] = data;
-        console.log(this.data);
+        // console.log(this.data);
 
-        console.log(data);
+        // console.log(data);
         data = data.split(";")
         let data_type = data[0];
         try {
@@ -170,7 +189,7 @@ export class EditblogComponent implements OnInit {
           this.data[pos]['file_type'] = '.' + data_type.split('/')[0];
         }
         data = data[1].split(",")[1];
-        console.log(data);
+        // console.log(data);
 
       })
     }

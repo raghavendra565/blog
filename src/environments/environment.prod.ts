@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  server_url: 'http://134.209.159.70:5000/api/v1/'
+  server_url: 'https://api.pythonguru.io/api/v1/'
 };
