@@ -148,6 +148,7 @@ export class PreviewComponent implements OnInit {
 
   getData() {
     this.data = JSON.parse(localStorage.getItem('data'));
+    console.log(this.data);
     // console.log(this.data);
     // this.route.queryParams.subscribe(params => {
     //   console.log(params);

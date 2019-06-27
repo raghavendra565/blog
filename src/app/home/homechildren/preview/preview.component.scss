@@ -1,6 +1,7 @@
 .postImage{
-    width:70%;
-    max-width: 80%;
+    width:100%;
+    object-fit: contain;
+    // max-width: 80%;
 }
 
 
@@ -16,6 +17,10 @@ h5{
 
 h3{
     color:#39935A; 
+}
+
+.article-heading {
+    color:#466aa7;
 }
 
 // p{

@@ -44,14 +44,31 @@ export class BlogComponent implements OnInit {
   select_language: Array<string> = ['css', 'javascript', 'java', 'markup', 'typescript', 'sass', 'python', 'dart', 'docker', 'go',
     'c', 'julia', 'scala', 'sql', 'r', 'yaml', 'json', 'protobuf', 'nginx', 'bash', 'powershell']
 
-    select_languages: Array<string> =['abap', 'actionscript', 'ada', 'apacheconf', 'apl', 'applescript', 'arduino', 'arff', 'asciidoc', 'asm6502', 'aspnet', 'autohotkey', 'autoit', 'bash', 'basic', 'batch', 'bison', 'brainfuck', 'bro', 'c', 'clike', 'clojure', 'coffeescript', 'cpp', 'crystal', 'csharp', 'csp', 'css', 'css-extras', 'd', 'dart', 'diff', 'django', 'docker', 'eiffel', 'elixir', 'elm', 'erb', 'erlang', 'flow', 'fortran', 'fsharp', 'gedcom', 'gherkin', 'git', 'glsl', 'gml', 'go', 'graphql', 'groovy', 'haml', 'handlebars', 'haskell', 'haxe', 'hpkp', 'hsts', 'http', 'ichigojam', 'icon', 'inform7', 'ini', 'io', 'j', 'java', 'javascript', 'jolie', 'json', 'jsx', 'julia', 'keyman', 'kotlin', 'latex', 'less', 'liquid', 'lisp', 'livescript', 'lolcode', 'lua', 'makefile', 'markdown', 'markup', 'markup-templating', 'matlab', 'mel', 'mizar', 'monkey', 'n4js', 'nasm', 'nginx', 'nim', 'nix', 'nsis', 'objectivec', 'ocaml', 'opencl', 'oz', 'parigp', 'parser', 'pascal', 'perl', 'php', 'php-extras', 'plsql', 'powershell', 'processing', 'prolog', 'properties', 'protobuf', 'pug', 'puppet', 'pure', 'python', 'q', 'qore', 'r', 'reason', 'renpy', 'rest', 'rip', 'roboconf', 'ruby', 'rust', 'sas', 'sass', 'scala', 'scheme', 'scss', 'smalltalk', 'smarty', 'soy', 'sql', 'stylus', 'swift', 'tap', 'tcl', 'textile', 'tsx', 'tt2', 'twig', 'typescript', 'vbnet', 'velocity', 'verilog', 'vhdl', 'vim', 'visual-basic', 'wasm', 'wiki', 'xeora', 'xojo', 'xquery', 'yaml']
-  
+  select_languages: Array<string> = ['abap', 'actionscript', 'ada', 'apacheconf', 'apl',
+    'applescript', 'arduino', 'arff', 'asciidoc', 'asm6502', 'aspnet', 'autohotkey',
+    'autoit', 'bash', 'basic', 'batch', 'bison', 'brainfuck', 'bro', 'c', 'clike', 'clojure',
+    'coffeescript', 'cpp', 'crystal', 'csharp', 'csp', 'css', 'css-extras', 'd', 'dart',
+    'diff', 'django', 'docker', 'eiffel', 'elixir', 'elm', 'erb', 'erlang', 'flow', 'fortran',
+    'fsharp', 'gedcom', 'gherkin', 'git', 'glsl', 'gml', 'go', 'graphql', 'groovy', 'haml',
+    'handlebars', 'haskell', 'haxe', 'hpkp', 'hsts', 'http', 'ichigojam', 'icon',
+    'inform7', 'ini', 'io', 'j', 'java', 'javascript', 'jolie', 'json', 'jsx',
+    'julia', 'keyman', 'kotlin', 'latex', 'less', 'liquid', 'lisp', 'livescript',
+    'lolcode', 'lua', 'makefile', 'markdown', 'markup', 'markup-templating',
+    'matlab', 'mel', 'mizar', 'monkey', 'n4js', 'nasm', 'nginx', 'nim', 'nix',
+    'nsis', 'objectivec', 'ocaml', 'opencl', 'oz', 'parigp', 'parser', 'pascal',
+    'perl', 'php', 'php-extras', 'plsql', 'powershell', 'processing', 'prolog',
+    'properties', 'protobuf', 'pug', 'puppet', 'pure', 'python', 'q', 'qore', 'r',
+    'reason', 'renpy', 'rest', 'rip', 'roboconf', 'ruby', 'rust', 'sas', 'sass', 'scala',
+    'scheme', 'scss', 'smalltalk', 'smarty', 'soy', 'sql', 'stylus', 'swift', 'tap', 'tcl',
+    'textile', 'tsx', 'tt2', 'twig', 'typescript', 'output >>','vbnet', 'velocity', 'verilog', 'vhdl',
+    'vim', 'visual-basic', 'wasm', 'wiki', 'xeora', 'xojo', 'xquery', 'yaml']
+
   ngOnInit() {
     try {
       var data = JSON.parse(localStorage.getItem('data'));
-      if( data == null){
+      if (data == null) {
         this.data = [{ "name": 'title', "position": 0, "file": "", "data": "", "placing": "", "language": "" }];
-      }else{
+      } else {
         this.data = data;
       }
     }
@@ -103,7 +120,12 @@ export class BlogComponent implements OnInit {
   selectLanguage(pos: any, event: any) {
     let val = event.value
     this.data[pos]["language"] = val;
-    this.data[pos]["class"] = "language-" + val;
+    if (val == "output >>"){
+      this.data[pos]["class"] = "language-" + 'bash';
+    }else {
+      this.data[pos]["class"] = "language-" + val;
+    }
+    
   }
 
   showPreview() {
@@ -128,18 +150,18 @@ export class BlogComponent implements OnInit {
         this.data[pos]['data'] = data;
         data = data.split(";")
         let data_type = data[0];
-        try{
-          this.data[pos]['file_type'] = '.'+data_type.split('/')[1];
+        try {
+          this.data[pos]['file_type'] = '.' + data_type.split('/')[1];
         }
         catch{
-          this.data[pos]['file_type'] = '.'+data_type.split('/')[0];
+          this.data[pos]['file_type'] = '.' + data_type.split('/')[0];
         }
         data = data[1].split(",")[1];
       })
     }
   }
 
-  reset_blog(){
+  reset_blog() {
     localStorage.clear();
     window.location.reload();
   }

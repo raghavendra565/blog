@@ -141,7 +141,12 @@ export class EditblogComponent implements OnInit {
   selectLanguage(pos: any, event: any) {
     let val = event.value
     this.data[pos]["language"] = val;
-    this.data[pos]["class"] = "language-" + val;
+    if (val == "output >>") {
+      this.data[pos]["class"] = "language-" + 'bash';
+    } else {
+      this.data[pos]["class"] = "language-" + val;
+    }
+    // this.data[pos]["class"] = "language-" + val;
     // console.log(this.data);
   }
 

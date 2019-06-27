@@ -89,7 +89,7 @@ export class PrevieweditComponent implements OnInit {
     'properties', 'protobuf', 'pug', 'puppet', 'pure', 'python', 'q', 'qore', 'r',
     'raspberry-pi', 'reason', 'renpy', 'rest', 'rip', 'roboconf', 'ruby', 'rust', 'sas',
     'sass', 'scala', 'scheme', 'scss', 'smalltalk', 'smarty', 'soy', 'sql', 'stylus',
-    'swift', 'tap', 'tcl', 'textile', 'tsx', 'tt2', 'twig', 'typescript', 'vbnet', 'velocity',
+    'swift', 'tap', 'tcl', 'textile', 'tsx', 'tt2', 'twig', 'typescript', 'output >>' ,'vbnet', 'velocity',
     'verilog', 'vhdl', 'vim', 'visual-basic', 'wasm', 'webscraping', 'wiki', 'xeora', 'xojo',
     'xquery', 'yaml']
 

@@ -9,17 +9,17 @@
               <div class="row">
                 <div class="col-lg-12">
                   <div width="100%" *ngFor="let record of data">
-                    <h2 *ngIf="record['name']== 'title'">{{record['data']}}</h2>
+                    <h3 class="article-heading" *ngIf="record['name']== 'title'">{{record['data']}}</h3>
                     <p *ngIf="record['name']== 'title'"
                       style="margin-top: -5px; color:#39935A !important; font-size:14px !important;">
-                      <span style="color:black;">
+                      <span style="color:rgb(85, 85, 85);">
                         <mat-icon class="material-icons">today</mat-icon>
                       </span>
-                      <span style="color: black;margin-left: -5px;">03/30/2017</span> &nbsp;
-                      <span style="color:black;">
+                      <span style="color:rgb(85, 85, 85); margin-left: -5px;">03/30/2017</span> &nbsp;
+                      <span style="color:rgb(85, 85, 85); ">
                         <mat-icon class="material-icons">timer</mat-icon>
                       </span>
-                      <span style="color:black;margin-left: -5px;">5 minutes read&nbsp;&nbsp;</span>
+                      <span style="color:rgb(85, 85, 85); margin-left: -5px;">5 minutes read&nbsp;&nbsp;</span>
                       <span><img src="assets/pen.png" width="12px" style="margin-top: -2px !important;"></span>
                       &nbsp;Naren Allam
                     </p>
@@ -27,7 +27,7 @@
                     <div class="mt-3">
                       <p *ngIf="record['name']== 'text'" innerHtml="{{record['data']}}"></p>
                       <div>
-                        <img class="postImage" [src]="record['data']" *ngIf="record['name'] == 'image'">
+                        <img class="postImage mat-elevation-z2" [src]="record['data']" *ngIf="record['name'] == 'image'">
                       </div>
                       <div class="row">
                         <div class="col-lg-12" *ngIf="record['name']== 'subtitle'">

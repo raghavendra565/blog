@@ -1,6 +1,7 @@
 .postImage{
-    width:70%;
-    max-width: 80%;
+    width:100%;
+    object-fit: contain;
+    // max-width: 80%;
 }
 
 
@@ -22,6 +23,10 @@ h3{
 //     // margin-top: -20px;
 //     font-family: 'Segoe Pro Regular' !important;
 // }
+
+.article-heading {
+    color:#466aa7;
+}
 
 .material-icons {
     font-family: 'Material Icons' !important;
